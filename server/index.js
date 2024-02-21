@@ -7,14 +7,12 @@ import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import dotenv from 'dotenv';
 
-
-
-  
+dotenv.config();
+ 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
-dotenv.config();
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
