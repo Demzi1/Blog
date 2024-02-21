@@ -1,10 +1,15 @@
-import mysql from 'mysql2';
+import mysql from 'mysql';
 import dotenv from 'dotenv';
 dotenv.config();
 
 export const db = mysql.createConnection({
-    host:process.env.NODE_host,
-    user:process.env.NODE_root,
-    password:process.env.NODE_password,
-    database:process.env.NODE_database
+    host:"localhost",
+    user:"root",
+    password:"executeBlog",
+    database:"blog"
 })
+
+db.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
