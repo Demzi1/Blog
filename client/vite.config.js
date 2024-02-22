@@ -9,7 +9,7 @@ export default defineConfig({
     port:5137,
     proxy: {
       '/api': {
-        target: 'http://localhost:8800', // Specify the target host
+        target: 'https://blog-pbn2.onrender.com', // Specify the target host
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, '/api') // Rewrite path
       }

@@ -6,6 +6,7 @@ import userRoutes from './routes/users.js';
 import cookieParser from 'cookie-parser';
 import multer from 'multer';
 import dotenv from 'dotenv';
+import {v2 as cloudinary} from 'cloudinary';
 
 dotenv.config();
  
@@ -15,21 +16,30 @@ app.use(cors());
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, '../client/src/assets/uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + file.originalname)
-    }
+        filename: function (req, file, cb) {
+            cb(null, Date.now() + file.originalname)
+          }
 });
-  
+      
 const upload = multer({ storage });
 
-app.post("/api/upload", upload.single("file"), function (req, res, ) {
-    const file = req.file;
-    res.status(200).json(file.filename);
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET_KEY
 });
-    
+
+
+app.post("/api/uploadcloudinary",upload.single("file"), async(req, res)=>{
+  try {
+    const file = req.file.path;
+    const result = await cloudinary.uploader.upload(file);
+    res.status(200).json(result)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Error uploading image' });
+  }
+})
 
 
 

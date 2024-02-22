@@ -29,7 +29,7 @@ const Menu = ({cat, id}) => {
         {posts.map(post =>(
           <div key={post.id} className="post">
             <Link to={`/post/${post.id}`}>
-                <img src={`/src/assets/uploads/${post?.img}`} alt="" />
+                <img src={post?.img} alt="" />
                 <h2>{post.title}</h2>
             </Link>
             <button>Read more...</button>

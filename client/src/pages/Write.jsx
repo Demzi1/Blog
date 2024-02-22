@@ -16,26 +16,30 @@ const Write = () => {
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState(state?.cat || "");
 
-  const upload = async()=>{
+  
+  const uploadToCloudinary = async() =>{
     try {
       const formData = new FormData();
       formData.append("file",file);
-      const res = await axios.post("/api/upload", formData);
-      return res.data;
-    } catch (err) {
-      console.log(err);
+      const res = await axios.post("/api/uploadcloudinary", formData);
+      return res.data.url
+    } catch (error) {
+      console.log(error);
     }
   }
 
   const navigate = useNavigate();
   
   const handlePublish = async(e)=>{
+
     e.preventDefault();
-    const imgUrl = await upload();
+    if(!file) return window.alert("please enter a image for your blog")
+    const imgUrl = await uploadToCloudinary();
+
     try {
-      state? await axios.put(`/api/posts/${state.id}`,{title,desc:value,cat,img:file?imgUrl:""}) 
+      state? await axios.put(`/api/posts/${state.id}`,{title,desc:value,cat,img:imgUrl}) 
       :
-      await axios.post(`/api/posts/`,{title,desc:value,cat,img:file? imgUrl : "",date:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")});
+      await axios.post(`/api/posts/`,{title,desc:value,cat,img:imgUrl,date:moment(Date.now()).format("YYYY-MM-DD HH:mm:ss")});
       navigate("/");
     } catch (err) {
       console.log(err)

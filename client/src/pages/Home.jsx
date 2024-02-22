@@ -35,16 +35,16 @@ const Home = () => {
     <div className="home">
       <div className="posts">
         {posts.map((post)=>(
-          <div className="post" key={post.id}>
+          <div className="post" key={post?.id}>
             <div className="img">
-              <img src={`/src/assets/uploads/${post?.img}`} alt=""/>
+              <img src={post?.img}alt=""/>
             </div>
             <div className="content">
-              <Link className="link" to={`/post/${post.id}`} >
-                <h1>{post.title}</h1>
+              <Link className="link" to={`/post/${post?.id}`} >
+                <h1>{post?.title}</h1>
               </Link>
-              <p id={`desc_${post.id}`}>{getText(post.desc)}</p>
-              <button onClick={()=>handleClick(post.id)} >Read more...</button>
+              <p id={`desc_${post.id}`}>{getText(post?.desc)}</p>
+              <button onClick={()=>handleClick(post?.id)} >Read more...</button>
             </div>
           </div>
         ))}
