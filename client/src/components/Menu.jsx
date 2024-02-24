@@ -5,6 +5,7 @@ import axios from "axios";
 const Menu = ({cat, id}) => {
 
   const [posts, setPosts] = useState([]);
+  
 
   useEffect(()=>{
     const fetchData = async()=>{
@@ -27,10 +28,10 @@ const Menu = ({cat, id}) => {
     <div className="menu">
         <h1>Others posts you  may like</h1>
         {posts.map(post =>(
-          <div key={post.id} className="post">
+          <div key={post?.id} className="post">
             <Link to={`/post/${post.id}`}>
                 <img src={post?.img} alt="" />
-                <h2>{post.title}</h2>
+                <h2>{post?.title}</h2>
             </Link>
             <button>Read more...</button>
           </div>

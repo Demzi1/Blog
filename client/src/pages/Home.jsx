@@ -7,6 +7,7 @@ const Home = () => {
 
   const [posts, setPosts] = useState([]);
 
+
   const cat = useLocation().search;
 
   useEffect(()=>{
@@ -43,7 +44,7 @@ const Home = () => {
               <Link className="link" to={`/post/${post?.id}`} >
                 <h1>{post?.title}</h1>
               </Link>
-              <p id={`desc_${post.id}`}>{getText(post?.desc)}</p>
+              <p id={`desc_${post?.id}`}>{getText(post?.desc)}</p>
               <button onClick={()=>handleClick(post?.id)} >Read more...</button>
             </div>
           </div>
@@ -53,3 +54,5 @@ const Home = () => {
   )
 }
 export default Home
+
+
